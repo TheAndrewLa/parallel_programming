@@ -10,21 +10,21 @@ public class Sample1 {
         });
 
         var taskA = new Thread(() -> {                
+            taskB.start();
+            
+            System.out.println("Thread A started!");
+            
+            for (int i = 0; i < 100; i++) {
+                System.out.println("Thread A doing boring work [-_-]");
+            }
+
             try {
-                taskB.start();
-                
-                System.out.println("Thread A started!");
-
-                for (int i = 0; i < 100; i++) {
-                    System.out.println("Thread A doing boring work [-_-]");
-                }
-
                 taskB.join();
-
-                System.out.println("Thread A finished!");
             } catch (InterruptedException e) {
                 throw new RuntimeException("Interrupt in thread A!");
             }
+            
+            System.out.println("Thread A finished!");
         });
 
         taskA.start();

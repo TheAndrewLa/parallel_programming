@@ -8,37 +8,39 @@ public class Sample2 {
             throw new RuntimeException("Thread B aborted!");
         });
     
-        var taskC = new Thread(() -> {
-            try {
-                System.out.println("Thread C started!");
-                taskB.join();
+        var taskC = new Thread(() -> {            
+            System.out.println("Thread C started!");
 
-                System.out.println("Thread C finished!");
+            try {
+                Thread.sleep(10000);
+                taskB.join();
             } catch (Exception e) {
                 throw new RuntimeException("Interrupt in thread C!");
             }
+
+            System.out.println("Thread C finished!");
         });
 
         var taskA = new Thread(() -> {                
+            System.out.println("Thread A started!");
+            
+            for (int i = 0; i < 50; i++) {
+                System.out.println("Thread A doing boring work [-_-]");
+            }
+
             try {
-                System.out.println("Thread A started!");
-
-                for (int i = 0; i < 50; i++) {
-                    System.out.println("Thread A doing boring work [-_-]");
-                }
-
                 taskB.join();
-
-                System.out.println("Thread A finished!");
             } catch (InterruptedException e) {
                 throw new RuntimeException("Interrupt in thread A!");
             }
+
+            System.out.println("Thread A finished!");
         });
 
         taskA.start();
-        taskA.join();
-
         taskC.start();
+
+        taskA.join();
         taskC.join();
     }
 }
