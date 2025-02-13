@@ -1,5 +1,11 @@
+# Outputs of compiles
+
 *.class
 *.out
+
+# Folders
+
 *build*
+*logs*
 
 .vscode
