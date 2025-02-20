@@ -3,11 +3,11 @@ package Task14;
 // Two-thread deadlock
 
 public class Sample2 {
-    static volatile Runnable threadAFunction = null;
+    static volatile Runnable function = null;
 
     public static void main(String[] args) throws InterruptedException {
         var threadA = new Thread(() -> {
-            threadAFunction.run();
+            function.run();
         });
 
         var threadB = new Thread(() -> {
@@ -18,7 +18,7 @@ public class Sample2 {
             }
         });
 
-        threadAFunction = () -> {
+        function = () -> {
             try {
                 threadB.join();
             } catch (InterruptedException e) {

@@ -1,6 +1,9 @@
 dir:
 	@mkdir -p build
 
+clean:
+	@rm -r build
+
 build_first: dir
 	@javac -d build Sample1.java
 
