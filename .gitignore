@@ -5,7 +5,7 @@
 
 # Folders
 
-*build*
-*logs*
+build
+logs
 
 .vscode
